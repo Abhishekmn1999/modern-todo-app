@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Todo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="calendar-panel">
+            <div class="calendar-header">
+                <button id="prev-month">‹</button>
+                <div class="date-selectors">
+                    <select id="month-select"></select>
+                    <select id="year-select"></select>
+                </div>
+                <button id="next-month">›</button>
+            </div>
+            <button id="today-btn" class="today-btn">Today</button>
+            <div class="calendar-grid" id="calendar-grid"></div>
+        </div>
+        
+        <div class="todos-panel">
+            <div class="todos-header">
+                <h3 id="selected-date">Today's Tasks</h3>
+                <div class="header-right">
+                    <div class="progress-section">
+                        <div class="stats" id="stats">0/0 completed</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                    <button id="share-btn" title="Share App">🚀</button>
+                    <button id="notification-btn" title="Enable Notifications">🔔</button>
+                    <button id="theme-toggle">🌙</button>
+                </div>
+            </div>
+            
+            <div class="inline-notification" id="inline-notification">
+                <span class="notification-text"></span>
+                <button class="notification-close">×</button>
+            </div>
+            
+            <div class="search-section">
+                <input type="text" id="search-input" placeholder="Search todos...">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="completed">Done</button>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <div class="input-wrapper">
+                    <input type="text" id="todo-input" placeholder="Add task for selected date..." autocomplete="off">
+                    <select id="priority-select">
+                        <option value="low">🟢</option>
+                        <option value="medium" selected>🟡</option>
+                        <option value="high">🔴</option>
+                    </select>
+                    <select id="category-select">
+                        <option value="work">💼</option>
+                        <option value="personal">👤</option>
+                        <option value="health">🏃</option>
+                        <option value="shopping">🛍</option>
+                        <option value="other">📝</option>
+                    </select>
+                    <input type="time" id="time-input">
+                    <button id="add-btn" aria-label="Add todo">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+            
+            <div class="todos-section">
+                <ul id="todo-list" role="list"></ul>
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <p>No tasks for this date</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="share-modal" id="share-modal">
+        <div class="share-content">
+            <h3>🚀 Share Modern Todo App</h3>
+            <p>Share this awesome todo app with your friends!</p>
+            <div class="share-options">
+                <button class="share-option" id="copy-link">🔗 Copy Link</button>
+                <button class="share-option" id="share-whatsapp">📱 WhatsApp</button>
+                <button class="share-option" id="share-email">✉️ Email</button>
+                <button class="share-option" id="share-twitter">🐦 Twitter</button>
+            </div>
+            <button class="modal-close" id="modal-close">×</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
