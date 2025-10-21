@@ -9,23 +9,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzFuLI74VDdUOxqhy29NaZ_MW6RSPk5nQ",
+            authDomain: "modern-todo-app-becbb.firebaseapp.com",
+            projectId: "modern-todo-app-becbb",
+            storageBucket: "modern-todo-app-becbb.firebasestorage.app",
+            messagingSenderId: "886296216829",
+            appId: "1:886296216829:web:5e5f1102349270fcd5ea94"
+        };
+        
+        window.firebaseApp = initializeApp(firebaseConfig);
+        window.db = getFirestore(window.firebaseApp);
+        window.auth = getAuth(window.firebaseApp);
+    </script>
 </head>
 <body>
     <div class="app-container">
-        <div class="calendar-panel">
-            <div class="calendar-header">
-                <button id="prev-month">‹</button>
-                <div class="date-selectors">
-                    <select id="month-select"></select>
-                    <select id="year-select"></select>
-                </div>
-                <button id="next-month">›</button>
-            </div>
-            <button id="today-btn" class="today-btn">Today</button>
-            <div class="calendar-grid" id="calendar-grid"></div>
-        </div>
+        <header class="main-header">
+            <h1>✨ Modern Todo List</h1>
+        </header>
         
-        <div class="todos-panel">
+        <div class="app-content">
+            <div class="calendar-panel">
+                <div class="calendar-header">
+                    <button id="prev-month">‹</button>
+                    <div class="date-selectors">
+                        <select id="month-select"></select>
+                        <select id="year-select"></select>
+                    </div>
+                    <button id="next-month">›</button>
+                </div>
+                <button id="today-btn" class="today-btn">Today</button>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+            
+            <div class="todos-panel">
             <div class="todos-header">
                 <h3 id="selected-date">Today's Tasks</h3>
                 <div class="header-right">
@@ -35,6 +58,7 @@
                             <div class="progress-fill" id="progress-fill"></div>
                         </div>
                     </div>
+                    <button id="sync-btn" title="Sync with Cloud">☁️</button>
                     <button id="share-btn" title="Share App">🚀</button>
                     <button id="notification-btn" title="Enable Notifications">🔔</button>
                     <button id="theme-toggle">🌙</button>
@@ -59,16 +83,16 @@
                 <div class="input-wrapper">
                     <input type="text" id="todo-input" placeholder="Add task for selected date..." autocomplete="off">
                     <select id="priority-select">
-                        <option value="low">🟢</option>
-                        <option value="medium" selected>🟡</option>
-                        <option value="high">🔴</option>
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
                     </select>
                     <select id="category-select">
-                        <option value="work">💼</option>
-                        <option value="personal">👤</option>
-                        <option value="health">🏃</option>
-                        <option value="shopping">🛍</option>
-                        <option value="other">📝</option>
+                        <option value="work">💼work</option>
+                        <option value="personal">👤personal</option>
+                        <option value="health">🏃health</option>
+                        <option value="shopping">🛍shopping</option>
+                        <option value="other">📝other</option>
                     </select>
                     <input type="time" id="time-input">
                     <button id="add-btn" aria-label="Add todo">
@@ -102,6 +126,23 @@
                 <button class="share-option" id="share-twitter">🐦 Twitter</button>
             </div>
             <button class="modal-close" id="modal-close">×</button>
+        </div>
+    </div>
+    
+    <div class="sync-modal" id="sync-modal">
+        <div class="sync-content">
+            <h3>☁️ Cloud Sync</h3>
+            <div id="sync-status">
+                <p>Sign in to sync your todos across devices</p>
+                <button id="google-signin">🔑 Sign in with Google</button>
+                <button id="anonymous-signin">👤 Continue as Guest</button>
+            </div>
+            <div id="sync-info" style="display:none;">
+                <p>Signed in as: <span id="user-email"></span></p>
+                <button id="sync-now">☁️ Sync Now</button>
+                <button id="sign-out">🚪 Sign Out</button>
+            </div>
+            <button class="modal-close" id="sync-close">×</button>
         </div>
     </div>
     <script src="script.js"></script>

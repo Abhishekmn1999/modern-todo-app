@@ -31,12 +31,32 @@ body::before {
   z-index: -1;
 }
 
+.main-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.main-header h1 {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
 .app-container {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  gap: 1rem;
   padding: 1rem;
   animation: fadeInUp 0.8s ease;
+}
+
+.app-content {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
 }
 
 .calendar-panel {
@@ -260,7 +280,7 @@ body::before {
   animation: pulse 1s ease infinite;
 }
 
-#theme-toggle, #notification-btn, #share-btn {
+#theme-toggle, #notification-btn, #share-btn, #sync-btn {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
@@ -271,9 +291,73 @@ body::before {
   transition: all 0.2s ease;
 }
 
-#theme-toggle:hover, #notification-btn:hover, #share-btn:hover {
+#theme-toggle:hover, #notification-btn:hover, #share-btn:hover, #sync-btn:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.05);
+}
+
+#sync-btn.synced {
+  background: rgba(16, 185, 129, 0.6);
+  border-color: rgba(16, 185, 129, 0.8);
+}
+
+.sync-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.sync-modal.show {
+  display: flex;
+}
+
+.sync-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.sync-content h3 {
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.sync-content p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+#google-signin, #anonymous-signin, #sync-now, #sign-out {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 0.25rem;
+  transition: all 0.2s ease;
+  display: block;
+  width: 100%;
+}
+
+#google-signin:hover, #anonymous-signin:hover, #sync-now:hover, #sign-out:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .share-modal {
@@ -891,11 +975,17 @@ body::before {
     font-size: 14px;
   }
   
+  .main-header h1 {
+    font-size: 1.8rem;
+  }
+  
   .app-container {
+    padding: 0.5rem;
+  }
+  
+  .app-content {
     flex-direction: column;
-    padding: 0.25rem;
     gap: 0.5rem;
-    min-height: 100vh;
   }
   
   .calendar-panel {
@@ -961,7 +1051,7 @@ body::before {
     height: 6px;
   }
   
-  #theme-toggle, #notification-btn, #share-btn {
+  #theme-toggle, #notification-btn, #share-btn, #sync-btn {
     padding: 0.4rem;
     font-size: 0.9rem;
   }

@@ -28,6 +28,49 @@ const copyLink = document.getElementById('copy-link');
 const shareWhatsapp = document.getElementById('share-whatsapp');
 const shareEmail = document.getElementById('share-email');
 const shareTwitter = document.getElementById('share-twitter');
+const syncBtn = document.getElementById('sync-btn');
+const syncModal = document.getElementById('sync-modal');
+const syncClose = document.getElementById('sync-close');
+const googleSignin = document.getElementById('google-signin');
+const anonymousSignin = document.getElementById('anonymous-signin');
+const syncNow = document.getElementById('sync-now');
+const signOut = document.getElementById('sign-out');
+const syncStatus = document.getElementById('sync-status');
+const syncInfo = document.getElementById('sync-info');
+const userEmail = document.getElementById('user-email');
+
+let currentUser = null;
+let isOnline = navigator.onLine;
+
+// Simple Firebase check
+setTimeout(() => {
+    if (window.auth) {
+        console.log('Firebase loaded successfully');
+    }
+}, 1000);
+
+function updateSyncUI() {
+    if (currentUser) {
+        syncBtn.classList.add('synced');
+        syncBtn.title = 'Synced with Cloud';
+        syncStatus.style.display = 'none';
+        syncInfo.style.display = 'block';
+        userEmail.textContent = currentUser.email || 'Anonymous User';
+    } else {
+        syncBtn.classList.remove('synced');
+        syncBtn.title = 'Sync with Cloud';
+        syncStatus.style.display = 'block';
+        syncInfo.style.display = 'none';
+    }
+}
+
+function syncToCloud() {
+    showInlineNotification('☁️ Sync feature coming soon!');
+}
+
+function syncFromCloud() {
+    showInlineNotification('☁️ Sync feature coming soon!');
+}
 
 
 // Update notification button state
@@ -122,8 +165,10 @@ setInterval(() => {
 let currentFilter = 'all';
 let searchTerm = '';
 
-let currentDate = new Date();
-let selectedDate = new Date();
+// Initialize dates properly
+const today = new Date();
+let currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+let selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 const todos = JSON.parse(localStorage.getItem('modernTodos') || '{}');
 
 function formatDate(date) {
@@ -418,8 +463,8 @@ yearSelect.addEventListener('change', () => {
 
 todayBtn.addEventListener('click', () => {
     const today = new Date();
-    currentDate = new Date(today);
-    selectedDate = new Date(today);
+    currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     renderCalendar();
     renderTodos();
 });
@@ -542,8 +587,67 @@ shareTwitter.addEventListener('click', () => {
     shareModal.classList.remove('show');
 });
 
+// Sync functionality
+syncBtn.addEventListener('click', () => {
+    syncModal.classList.add('show');
+});
+
+syncClose.addEventListener('click', () => {
+    syncModal.classList.remove('show');
+});
+
+syncModal.addEventListener('click', (e) => {
+    if (e.target === syncModal) {
+        syncModal.classList.remove('show');
+    }
+});
+
+googleSignin.addEventListener('click', () => {
+    showInlineNotification('🔑 Google sign-in coming soon!');
+    syncModal.classList.remove('show');
+});
+
+anonymousSignin.addEventListener('click', () => {
+    showInlineNotification('👤 Anonymous sign-in coming soon!');
+    syncModal.classList.remove('show');
+});
+
+syncNow.addEventListener('click', () => {
+    syncToCloud();
+});
+
+signOut.addEventListener('click', () => {
+    showInlineNotification('🚪 Sign out coming soon!');
+    syncModal.classList.remove('show');
+});
+
+// Auto-sync when todos change
+function saveTodos() {
+    localStorage.setItem('modernTodos', JSON.stringify(todos));
+    if (currentUser && isOnline) {
+        syncToCloud();
+    }
+}
+
+// Online/offline detection
+window.addEventListener('online', () => {
+    isOnline = true;
+    if (currentUser) {
+        syncFromCloud();
+    }
+});
+
+window.addEventListener('offline', () => {
+    isOnline = false;
+});
+
 // Initialize notification button
 updateNotificationBtn();
+
+// Ensure dates are properly set on load
+const todayDate = new Date();
+selectedDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+currentDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
 
 populateSelectors();
 renderCalendar();
