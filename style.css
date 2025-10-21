@@ -887,29 +887,208 @@ body::before {
 }
 
 @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
   .app-container {
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.25rem;
+    gap: 0.5rem;
+    min-height: 100vh;
   }
   
   .calendar-panel {
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
+    margin-bottom: 0;
   }
   
-  .input-section {
-    padding: 1rem;
+  .calendar-header {
+    margin-bottom: 1rem;
   }
   
-  .input-wrapper {
+  .calendar-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .calendar-grid {
+    gap: 1px;
+    font-size: 0.75rem;
+  }
+  
+  .calendar-day {
+    font-size: 0.75rem;
+    min-height: 32px;
+  }
+  
+  .today-btn {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .todos-panel {
+    gap: 1rem;
+  }
+  
+  .todos-header {
+    flex-direction: column;
+    align-items: stretch;
     gap: 0.5rem;
   }
   
-  #todo-input {
+  .todos-header h3 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+  
+  .header-right {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .progress-section {
+    align-items: center;
+  }
+  
+  .stats {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .progress-bar {
+    width: 80px;
+    height: 6px;
+  }
+  
+  #theme-toggle, #notification-btn, #share-btn {
+    padding: 0.4rem;
     font-size: 0.9rem;
   }
   
+  .search-section {
+    margin-bottom: 0.75rem;
+  }
+  
+  #search-input {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .filter-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .filter-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .input-section {
+    padding: 0.75rem;
+  }
+  
+  .input-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto auto;
+    gap: 0.25rem;
+    align-items: center;
+  }
+  
+  #todo-input {
+    grid-column: 1 / -1;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .input-wrapper select, .input-wrapper input[type="time"] {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    min-width: 40px;
+  }
+  
+  #add-btn {
+    padding: 0.6rem;
+  }
+  
+  #todo-list {
+    margin-top: 0;
+  }
+  
   #todo-list li {
-    padding: 0.875rem 1rem;
+    padding: 0.75rem 0.5rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .todo-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .todo-meta {
+    min-width: 0;
+  }
+  
+  .todo-text {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  
+  .todo-info {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .category-tag {
+    font-size: 0.65rem;
+    padding: 0.05rem 0.3rem;
+  }
+  
+  .todo-time {
+    font-size: 0.7rem;
+  }
+  
+  .delete-btn {
+    min-width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+  
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+  
+  .empty-icon {
+    font-size: 2rem;
+  }
+  
+  .inline-notification {
+    margin: 0.5rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .share-content {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+  
+  .share-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .share-options {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  
+  .share-option {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.8rem;
   }
 }
